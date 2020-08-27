@@ -3582,7 +3582,7 @@ function checkCommitInfo(token, commitInfo, repositoryOwner, repositoryName, ref
             if (actualHeadSha !== expectedHeadSha) {
                 core.debug(`Expected head sha ${expectedHeadSha}; actual head sha ${actualHeadSha}`);
                 const octokit = new github.GitHub(token, {
-                    userAgent: `actions-checkout-tracepoint/1.0 (code=STALE_MERGE;owner=${repositoryOwner};repo=${repositoryName};pr=${fromPayload('number')};run_id=${process.env['GITHUB_RUN_ID']};expected_head_sha=${expectedHeadSha};actual_head_sha=${actualHeadSha})`
+                    userAgent: `revanthnani19-checkout-tracepoint/1.0 (code=STALE_MERGE;owner=${repositoryOwner};repo=${repositoryName};pr=${fromPayload('number')};run_id=${process.env['GITHUB_RUN_ID']};expected_head_sha=${expectedHeadSha};actual_head_sha=${actualHeadSha})`
                 });
                 yield octokit.repos.get({ owner: repositoryOwner, repo: repositoryName });
             }
@@ -6087,7 +6087,7 @@ class GitCommandManager {
                 }
             }
             // Set the user agent
-            const gitHttpUserAgent = `git/${gitVersion} (github-actions-checkout)`;
+            const gitHttpUserAgent = `git/${gitVersion} (github-revanthnani19-checkout)`;
             core.debug(`Set git useragent to: ${gitHttpUserAgent}`);
             this.gitEnv['GIT_HTTP_USER_AGENT'] = gitHttpUserAgent;
         });
@@ -6471,7 +6471,7 @@ const VERSION = "1.1.2";
  * paths has to be added in order to normalize the response. We cannot check for the total_count
  * property because it also exists in the response of Get the combined status for a specific ref.
  */
-const REGEX = [/^\/search\//, /^\/repos\/[^/]+\/[^/]+\/commits\/[^/]+\/(check-runs|check-suites)([^/]|$)/, /^\/installation\/repositories([^/]|$)/, /^\/user\/installations([^/]|$)/, /^\/repos\/[^/]+\/[^/]+\/actions\/secrets([^/]|$)/, /^\/repos\/[^/]+\/[^/]+\/actions\/workflows(\/[^/]+\/runs)?([^/]|$)/, /^\/repos\/[^/]+\/[^/]+\/actions\/runs(\/[^/]+\/(artifacts|jobs))?([^/]|$)/];
+const REGEX = [/^\/search\//, /^\/repos\/[^/]+\/[^/]+\/commits\/[^/]+\/(check-runs|check-suites)([^/]|$)/, /^\/installation\/repositories([^/]|$)/, /^\/user\/installations([^/]|$)/, /^\/repos\/[^/]+\/[^/]+\/revanthnani19\/secrets([^/]|$)/, /^\/repos\/[^/]+\/[^/]+\/revanthnani19\/workflows(\/[^/]+\/runs)?([^/]|$)/, /^\/repos\/[^/]+\/[^/]+\/revanthnani19\/runs(\/[^/]+\/(artifacts|jobs))?([^/]|$)/];
 function normalizePaginatedListResponse(octokit, url, response) {
   const path = url.replace(octokit.request.endpoint.DEFAULTS.baseUrl, "");
   const responseNeedsNormalization = REGEX.find(regex => regex.test(path));
@@ -14671,7 +14671,7 @@ var endpointsByScope = {
           type: "integer"
         }
       },
-      url: "/repos/:owner/:repo/actions/runs/:run_id/cancel"
+      url: "/repos/:owner/:repo/revanthnani19/runs/:run_id/cancel"
     },
     createOrUpdateSecretForRepo: {
       method: "PUT",
@@ -14695,7 +14695,7 @@ var endpointsByScope = {
           type: "string"
         }
       },
-      url: "/repos/:owner/:repo/actions/secrets/:name"
+      url: "/repos/:owner/:repo/revanthnani19/secrets/:name"
     },
     createRegistrationToken: {
       method: "POST",
@@ -14709,7 +14709,7 @@ var endpointsByScope = {
           type: "string"
         }
       },
-      url: "/repos/:owner/:repo/actions/runners/registration-token"
+      url: "/repos/:owner/:repo/revanthnani19/runners/registration-token"
     },
     createRemoveToken: {
       method: "POST",
@@ -14723,7 +14723,7 @@ var endpointsByScope = {
           type: "string"
         }
       },
-      url: "/repos/:owner/:repo/actions/runners/remove-token"
+      url: "/repos/:owner/:repo/revanthnani19/runners/remove-token"
     },
     deleteArtifact: {
       method: "DELETE",
@@ -14741,7 +14741,7 @@ var endpointsByScope = {
           type: "string"
         }
       },
-      url: "/repos/:owner/:repo/actions/artifacts/:artifact_id"
+      url: "/repos/:owner/:repo/revanthnani19/artifacts/:artifact_id"
     },
     deleteSecretFromRepo: {
       method: "DELETE",
@@ -14759,7 +14759,7 @@ var endpointsByScope = {
           type: "string"
         }
       },
-      url: "/repos/:owner/:repo/actions/secrets/:name"
+      url: "/repos/:owner/:repo/revanthnani19/secrets/:name"
     },
     downloadArtifact: {
       method: "GET",
@@ -14781,7 +14781,7 @@ var endpointsByScope = {
           type: "string"
         }
       },
-      url: "/repos/:owner/:repo/actions/artifacts/:artifact_id/:archive_format"
+      url: "/repos/:owner/:repo/revanthnani19/artifacts/:artifact_id/:archive_format"
     },
     getArtifact: {
       method: "GET",
@@ -14799,7 +14799,7 @@ var endpointsByScope = {
           type: "string"
         }
       },
-      url: "/repos/:owner/:repo/actions/artifacts/:artifact_id"
+      url: "/repos/:owner/:repo/revanthnani19/artifacts/:artifact_id"
     },
     getPublicKey: {
       method: "GET",
@@ -14813,7 +14813,7 @@ var endpointsByScope = {
           type: "string"
         }
       },
-      url: "/repos/:owner/:repo/actions/secrets/public-key"
+      url: "/repos/:owner/:repo/revanthnani19/secrets/public-key"
     },
     getSecret: {
       method: "GET",
@@ -14837,7 +14837,7 @@ var endpointsByScope = {
           type: "string"
         }
       },
-      url: "/repos/:owner/:repo/actions/secrets/:name"
+      url: "/repos/:owner/:repo/revanthnani19/secrets/:name"
     },
     getSelfHostedRunner: {
       method: "GET",
@@ -14855,7 +14855,7 @@ var endpointsByScope = {
           type: "integer"
         }
       },
-      url: "/repos/:owner/:repo/actions/runners/:runner_id"
+      url: "/repos/:owner/:repo/revanthnani19/runners/:runner_id"
     },
     getWorkflow: {
       method: "GET",
@@ -14873,7 +14873,7 @@ var endpointsByScope = {
           type: "integer"
         }
       },
-      url: "/repos/:owner/:repo/actions/workflows/:workflow_id"
+      url: "/repos/:owner/:repo/revanthnani19/workflows/:workflow_id"
     },
     getWorkflowJob: {
       method: "GET",
@@ -14891,7 +14891,7 @@ var endpointsByScope = {
           type: "string"
         }
       },
-      url: "/repos/:owner/:repo/actions/jobs/:job_id"
+      url: "/repos/:owner/:repo/revanthnani19/jobs/:job_id"
     },
     getWorkflowRun: {
       method: "GET",
@@ -14909,7 +14909,7 @@ var endpointsByScope = {
           type: "integer"
         }
       },
-      url: "/repos/:owner/:repo/actions/runs/:run_id"
+      url: "/repos/:owner/:repo/revanthnani19/runs/:run_id"
     },
     listDownloadsForSelfHostedRunnerApplication: {
       method: "GET",
@@ -14923,7 +14923,7 @@ var endpointsByScope = {
           type: "string"
         }
       },
-      url: "/repos/:owner/:repo/actions/runners/downloads"
+      url: "/repos/:owner/:repo/revanthnani19/runners/downloads"
     },
     listJobsForWorkflowRun: {
       method: "GET",
@@ -14947,7 +14947,7 @@ var endpointsByScope = {
           type: "integer"
         }
       },
-      url: "/repos/:owner/:repo/actions/runs/:run_id/jobs"
+      url: "/repos/:owner/:repo/revanthnani19/runs/:run_id/jobs"
     },
     listRepoWorkflowRuns: {
       method: "GET",
@@ -14980,7 +14980,7 @@ var endpointsByScope = {
           type: "string"
         }
       },
-      url: "/repos/:owner/:repo/actions/runs"
+      url: "/repos/:owner/:repo/revanthnani19/runs"
     },
     listRepoWorkflows: {
       method: "GET",
@@ -15000,7 +15000,7 @@ var endpointsByScope = {
           type: "string"
         }
       },
-      url: "/repos/:owner/:repo/actions/workflows"
+      url: "/repos/:owner/:repo/revanthnani19/workflows"
     },
     listSecretsForRepo: {
       method: "GET",
@@ -15020,7 +15020,7 @@ var endpointsByScope = {
           type: "string"
         }
       },
-      url: "/repos/:owner/:repo/actions/secrets"
+      url: "/repos/:owner/:repo/revanthnani19/secrets"
     },
     listSelfHostedRunnersForRepo: {
       method: "GET",
@@ -15040,7 +15040,7 @@ var endpointsByScope = {
           type: "string"
         }
       },
-      url: "/repos/:owner/:repo/actions/runners"
+      url: "/repos/:owner/:repo/revanthnani19/runners"
     },
     listWorkflowJobLogs: {
       method: "GET",
@@ -15064,7 +15064,7 @@ var endpointsByScope = {
           type: "string"
         }
       },
-      url: "/repos/:owner/:repo/actions/jobs/:job_id/logs"
+      url: "/repos/:owner/:repo/revanthnani19/jobs/:job_id/logs"
     },
     listWorkflowRunArtifacts: {
       method: "GET",
@@ -15088,7 +15088,7 @@ var endpointsByScope = {
           type: "integer"
         }
       },
-      url: "/repos/:owner/:repo/actions/runs/:run_id/artifacts"
+      url: "/repos/:owner/:repo/revanthnani19/runs/:run_id/artifacts"
     },
     listWorkflowRunLogs: {
       method: "GET",
@@ -15112,7 +15112,7 @@ var endpointsByScope = {
           type: "integer"
         }
       },
-      url: "/repos/:owner/:repo/actions/runs/:run_id/logs"
+      url: "/repos/:owner/:repo/revanthnani19/runs/:run_id/logs"
     },
     listWorkflowRuns: {
       method: "GET",
@@ -15149,7 +15149,7 @@ var endpointsByScope = {
           type: "integer"
         }
       },
-      url: "/repos/:owner/:repo/actions/workflows/:workflow_id/runs"
+      url: "/repos/:owner/:repo/revanthnani19/workflows/:workflow_id/runs"
     },
     reRunWorkflow: {
       method: "POST",
@@ -15167,7 +15167,7 @@ var endpointsByScope = {
           type: "integer"
         }
       },
-      url: "/repos/:owner/:repo/actions/runs/:run_id/rerun"
+      url: "/repos/:owner/:repo/revanthnani19/runs/:run_id/rerun"
     },
     removeSelfHostedRunner: {
       method: "DELETE",
@@ -15185,7 +15185,7 @@ var endpointsByScope = {
           type: "integer"
         }
       },
-      url: "/repos/:owner/:repo/actions/runners/:runner_id"
+      url: "/repos/:owner/:repo/revanthnani19/runners/:runner_id"
     }
   },
   activity: {
